@@ -3,16 +3,27 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import logo from '../assets/logo.png';
 import Image from 'next/image';
-import { FaPhone, FaUser, FaEnvelope, FaInstagram, FaFacebook, FaYoutube, FaSearch } from 'react-icons/fa';
+import { FaPhone, FaUser, FaEnvelope, FaInstagram, FaFacebook, FaYoutube, FaSearch, FaBars } from 'react-icons/fa';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [isCategoryOpen, setIsCategoryOpen] = useState(false);
 
     const categories = [
-        { name: 'Seguridad Industrial', href: '/categoria/seguridad-industrial' },
-        { name: 'Equipos de Protección Personal', href: '/categoria/epp' },
-        { name: 'Herramientas', href: '/categoria/herramientas' },
-        { name: 'Ferretería', href: '/categoria/ferreteria' },
+        { name: 'BLOQUEO Y ETIQUETADO', href: '/categoria/bloqueo-etiquetado' },
+        { name: 'CONTROL DE DERRAMES', href: '/categoria/control-derrames' },
+        { name: 'EQUIPOS DE SEGURIDAD ELECTRICA', href: '/categoria/seguridad-electrica' },
+        { name: 'ESCALERAS', href: '/categoria/escaleras' },
+        { name: 'LINTERNAS', href: '/categoria/linternas' },
+        { name: 'PROTECCION AUDITIVA', href: '/categoria/proteccion-auditiva' },
+        { name: 'PROTECCION FACIAL', href: '/categoria/proteccion-facial' },
+        { name: 'PROTECCION PARA CAIDAS', href: '/categoria/proteccion-caidas' },
+        { name: 'PROTECCIÓN PARA LA CABEZA', href: '/categoria/proteccion-cabeza' },
+        { name: 'PROTECCIÓN PARA MANOS', href: '/categoria/proteccion-manos' },
+        { name: 'PROTECCION PARA PIES', href: '/categoria/proteccion-pies' },
+        { name: 'PROTECCION RESPIRATORIA', href: '/categoria/proteccion-respiratoria' },
+        { name: 'ROPA INDUSTRIAL', href: '/categoria/ropa-industrial' },
+        { name: 'SEÑALIZACIÓN Y SEGURIDAD VIAL', href: '/categoria/senalizacion' },
     ];
 
     return (
@@ -73,17 +84,17 @@ const Navbar = () => {
                             </div>
                         </div>
 
-                        {/* Carrito */}
+                        {/* Carrito y Usuario */}
                         <div className="flex items-center">
                             <Link href='/login' className='text-white relative text-gray-600 hover:text-orange-500'>
-                                <button className=' cursor-pointer text-white px-2 py-2 space-x-2 rounded-md'>
+                                <button className='cursor-pointer text-white px-2 py-2 space-x-2 rounded-md'>
                                     <FaUser className='text-2xl'/>
                                 </button>
                             </Link>
                             <span className='text-white mx-2'>
                                 |
                             </span>
-                            <Link href="/carrito" className="relative p-2 text-gray-600 hover:text-orange-500">
+                            <Link href="/carrito" className="relative p-2 text-white hover:text-orange-500">
                                 <span className="text-2xl">🛒</span>
                                 <span className="absolute -top-1 -right-1 bg-orange-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                                     0
@@ -98,6 +109,7 @@ const Navbar = () => {
             <nav className="bg-orange-500">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center h-12">
+                        {/* Botón de menú móvil */}
                         <button 
                             className="md:hidden text-white"
                             onClick={() => setIsOpen(!isOpen)}
@@ -107,13 +119,36 @@ const Navbar = () => {
                             <span className="block w-6 h-0.5 bg-white"></span>
                         </button>
 
+                        {/* Menú principal y categorías */}
                         <div className={`md:flex md:items-center md:space-x-8 ${isOpen ? 'block absolute top-full left-0 right-0 bg-orange-500 shadow-md' : 'hidden'}`}>
+                        <div className="relative group">
+                                <button 
+                                    onClick={() => setIsCategoryOpen(!isCategoryOpen)}
+                                    className="text-white hover:text-gray-200 font-medium px-3 py-2 flex items-center space-x-1"
+                                >
+                                    <FaBars className="text-sm" />
+                                    <span>Categorías</span>
+                                </button>
+                                <div className={`absolute left-0 w-72 bg-white shadow-lg z-50 ${isCategoryOpen ? 'block' : 'hidden'}`}>
+                                    {categories.map((category) => (
+                                        <Link
+                                            key={category.href}
+                                            href={category.href}
+                                            className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-orange-500"
+                                        >
+                                            {category.name}
+                                        </Link>
+                                    ))}
+                                </div>
+                            </div>
                             <Link href="/" className="text-white hover:text-gray-200 font-medium px-3 py-2">
                                 Inicio
                             </Link>
                             <Link href="/nosotros" className="text-white hover:text-gray-200 font-medium px-3 py-2">
                                 Nosotros
                             </Link>
+                            {/* Menú desplegable de categorías */}
+                            
                             <Link href="/tienda" className="text-white hover:text-gray-200 font-medium px-3 py-2">
                                 Tienda
                             </Link>
